@@ -12,32 +12,33 @@ Given the network’s structure as a vast population of paths, SymPathiCo hints 
 
 To facilitate exploration and experimentation with SymPathiCo, we provide a software framework including a Python package and a Colab notebook, enabling the community to test and extend the approach further.
 
-## Training SymPathiCo: Navigating the Neural Waterways
+## How Watersheds Evolve
 
-Within the framework of SymPathiCo, we conceive a neural network not as a static structure of weights and biases but as a living landscape of waterways. Here, each neuron is a junction in a vast network of rivers and streams, and the information flows like water through these junctions.
+Before we delve into the mathematics of our approach, let's first immerse ourselves in the intuitive landscape that inspires it. Imagine standing at the crest of a vast, untouched terrain, where the potential for life-giving waterways exists in every undulation and declivity. This is the genesis of "Watersheds," a concept that reimagines neural networks not as static constructs of nodes and edges but as ever-evolving waterways, carving their paths through the landscape of information.
 
 ### Laying Out the Landscape
 
-Before the first drop falls, we chart out our landscape. It's a realm where each junction (neuron) is defined by a unique number, set against a backdrop of predefined bounds. This terrain is meticulously mapped to ensure a directed flow, akin to designing a water park where every slide and channel has its purpose, guiding water from the entrance (input neurons) to the exit (output neurons).
+In the realm of Watersheds, each neuron is a junction within an intricate network of rivers and streams, poised to guide the flow of information from source to sea. Our task, as architects of this system, is to map out the terrain—defining the bounds of our landscape, where each junction is marked by a unique identifier, a number that signifies its place in the flow of data.
 
 ### Carving the Pathways
 
-As our network begins, it's a dry expanse, waiting for the life-giving flow of information. This changes with the introduction of our first rainstorm, the input data. Droplets gather at the topmost junctions, ready to embark on their journey through the network.
+With the terrain laid out, our landscape awaits the nourishing rains—the input data. As these first droplets gather at the highest junctions, they begin their descent, guided by the topology of our design. Their journey is one of exploration and discovery, seeking paths that lead them efficiently to their destinations.
 
-* Routing the Droplets: Each droplet represents a unit of information, seeking the path of least resistance towards its destination. However, it's bound by the natural law of this landscape: it can only flow downwards, from one junction to the next, mirroring the increasing order of our numbered neurons. This ensures that while our rivers can be wide and winding, they do not loop or backtrack, maintaining a forward momentum towards the outputs.
-
-* From Rain to Rivers: When a droplet encounters a junction, it has a choice to continue along existing pathways or, if none are suitable or existing, to carve new ones. The journey is random, exploring new connections between junctions, always aiming to reach the sea level—the output neurons. If a path proves successful, leading a droplet from its source to the desired destination, it is marked for replication, reinforcing this route within the landscape.
+* Routing the Droplets: In Watersheds, each droplet is a bearer of information, navigating the network with a single mandate: to flow downwards. This directed movement, from higher-numbered junctions to lower, ensures a unidirectional flow that mirrors the cascading nature of waterfalls, each drop moving inexorably towards the ocean depths—the output neurons.
+    
+* From Rain to Rivers: As droplets traverse junctions, they encounter decision points—moments to continue along established pathways or forge new ones. These decisions, while seemingly random, are guided by the inherent logic of the landscape and the destination of the droplets. Successful paths, those that facilitate a seamless journey from source to sea, are earmarked for replication, echoing the way trails are beaten through forests by repeated use.
+    
 
 ### The Saturation Threshold
 
-A unique aspect of our waterway system is the concept of saturation at each junction. Each can handle only so many droplets before reaching a threshold, beyond which it can no longer pass water efficiently. This natural regulation mechanism prevents flooding and ensures that our landscape remains balanced, with no single path becoming overwhelmingly dominant. When a junction overflows, it's a sign to explore alternative routes, mimicking the dynamic adaptation seen in natural systems.
+Central to the concept of Watersheds is the notion of saturation—a junction's capacity to guide droplets without becoming overwhelmed. This mechanism acts as a natural regulator, ensuring no single path becomes a floodway. It is through this balance that the landscape maintains its diversity and resilience, allowing for the redistribution of flows when certain paths become untenable.
 
 ### Replicating Success
 
-Upon completing a journey, if the droplets have successfully navigated from source to sea following the desired path, we replicate this path. It's akin to reinforcing a trail in the wilderness, making it more likely for future travelers (or in our case, information) to follow. This process of selection and replication allows the network to evolve naturally, strengthening successful paths over time.
+The completion of a droplet's journey from its source to the desired sea level is a cause for celebration and replication. This natural selection process, akin to reinforcing the banks of a river, ensures that future flows are more likely to follow these proven paths, strengthening the network's overall efficiency and adaptability.
 
 ### The Evolution of Pathways
 
-As more rain falls and more paths are carved, our landscape becomes a complex network of flowing information. Each successful journey reinforces the pathways, making them more prominent features of the landscape. Unsuccessful or unused paths gradually fade, reclaimed by the terrain. This dynamic, evolving system mirrors the process of natural selection, where only the most efficient and effective paths survive and thrive.
+Over time, as more rains fall and more paths are etched into the landscape, Watersheds transforms into a vibrant tapestry of flowing information. This dynamic, self-organizing system, guided by the principles of evolution and adaptation, ensures that only the most efficient pathways prevail, while those less traveled gradually fade, reclaimed by the natural order.
 
-In essence, SymPathiCo's approach to neural network training is a journey through a constantly evolving landscape, where information flows like water, seeking the most efficient paths through a network of interconnected junctions. It's a system that learns and adapts, not through rigid calculations and adjustments, but through the natural, intuitive process of evolution and adaptation.
+Watersheds invites us to envision neural networks as living, breathing ecosystems, where information flows like water, seeking efficiency and harmony in its passage. It is a journey through a landscape that learns and adapts, not through the rigid application of rules, but through the organic process of growth, selection, and renewal.
