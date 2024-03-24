@@ -140,17 +140,16 @@ class SimpleLayeredNet():
             print(f"{starting_layer=}")
             while np.any(remaining_weights[starting_layer:][0]):
                 print(f"{remaining_weights=}")
-                # pick the path randomly by starting at a random neuron in the first layer, picking a non-zero weight (its sign will be the path's sign), and following the path until we reach the last layer. Preferably we should pick a neuron with the same sign, then a neuron with no connection, then a neuron with the opposite sign.
+
                 path: list[float] = []
                 sign: Literal[1, -1] | None = None
                 indices_to_pick_from = np.where(np.any(remaining_weights[starting_layer], axis=1))[0]
-                # path.append(np.random.choice(indices_to_pick_from) / 10)
-                # Let's pick deterministically from the first possible neuron in that layer
                 path.append(indices_to_pick_from[0] / 10)
+
                 for layer in range(starting_layer, len(self.layer_sizes) - 1):
                     current_neuron_index = int(path[-1] * 10) % 10
                     print(f"{layer=}, {current_neuron_index=}")
-                    # Pick neurons from the next layer having the same sign as our picked sign (if any, otherwise just any neuron)
+
                     weights_to_next_layer = remaining_weights[layer]
                     if sign is None:
                         indices_to_pick_from = np.where(weights_to_next_layer[current_neuron_index] != 0)[0]
@@ -162,8 +161,7 @@ class SimpleLayeredNet():
                             indices_to_pick_from = np.where(weights_to_next_layer[current_neuron_index] == 0)[0]
                         if len(indices_to_pick_from) == 0:
                             indices_to_pick_from = np.arange(weights_to_next_layer.shape[1])
-                    # neuron_index = np.random.choice(indices_to_pick_from)
-                    # let's pick deterministically from the first possible neuron in that layer
+
                     neuron_index = indices_to_pick_from[0]
                     print(f"{indices_to_pick_from=}, {neuron_index=}")
                     path.append(layer + 1 + neuron_index / 10)
@@ -171,8 +169,9 @@ class SimpleLayeredNet():
                         sign = np.sign(weights_to_next_layer[current_neuron_index, neuron_index])
                         if sign == 0:
                             sign = np.random.choice([1, -1])
-                    # Subtract 1 or -1 from the weights to indicate that we've used this connection
+
                     remaining_weights[layer][current_neuron_index, neuron_index] -= sign
+
                 if sign is None:
                     raise ValueError("Sign not set (this should never happen)")
                 paths.append((sign, path))
