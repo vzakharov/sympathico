@@ -1,11 +1,14 @@
 # pyright: basic
 
 from typing import Literal
-import numpy as np
-from numpy import ndarray
+
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.patches import Circle
-from pdb import set_trace
+from numpy import ndarray
+
+from .utils import equals, not_equals
+
 
 class SimpleLayeredNet():
   
@@ -147,7 +150,7 @@ class SimpleLayeredNet():
 
                     weights_to_next_layer = remaining_weights[layer]
 
-                    def next_with_sign(condition) -> int | None:
+                    def next_where_sign(condition) -> int | None:
                         indices = np.where(condition(weights_to_next_layer[current_neuron_index]))[0]
                         if len(indices) == 0:
                             return None
@@ -155,11 +158,11 @@ class SimpleLayeredNet():
                     
                     def next() -> int:
                         return np.arange(weights_to_next_layer.shape[1])[0]
-                    
+                                        
                     neuron_index = \
-                        next_with_sign(lambda s: s != 0) or next() \
-                        if sign is None else \
-                        next_with_sign(lambda s: s == sign) or next_with_sign(lambda s: s == 0) or next()
+                        next_where_sign(equals(sign)) or next_where_sign(equals(0)) or next() \
+                        if sign \
+                        else next_where_sign(not_equals(0)) or next()
                     
                     print(f"{indices_to_pick_from=}, {neuron_index=}")
                     path.append(layer + 1 + neuron_index / 10)
