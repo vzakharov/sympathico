@@ -129,11 +129,6 @@ class SimpleLayeredNet():
             
     @property
     def paths(self):
-        """
-        Return the weights of the neural network as a list of paths. Each path is a tuple where the first element is either 1 or -1 (for positive/negative weights, respectively) and the second element is an array of numbers where the integer part represents the layer (0-indexed) and the decimal part represents the neuron (0-indexed).
-
-        Each link in the path represents a 1/-1-weighted connection between two neurons, thus the "sum" of all paths is the neural network. Note that any 0-weighted (i.e. absent) connection between two neurons can be represented as a sum of a 1 and a -1 path, so we can always represent the neural network as a sum of paths even if we run out of links.
-        """
         remaining_weights = [weights.copy() for weights in self.weights]
         paths: list[tuple[Literal[1, -1], list[float]]] = []
         for starting_layer in range(len(self.layer_sizes) - 1):
@@ -151,18 +146,21 @@ class SimpleLayeredNet():
                     print(f"{layer=}, {current_neuron_index=}")
 
                     weights_to_next_layer = remaining_weights[layer]
-                    if sign is None:
-                        indices_to_pick_from = np.where(weights_to_next_layer[current_neuron_index] != 0)[0]
-                        if len(indices_to_pick_from) == 0:
-                            indices_to_pick_from = np.arange(weights_to_next_layer.shape[1])
-                    else:
-                        indices_to_pick_from = np.where(weights_to_next_layer[current_neuron_index] == sign)[0]
-                        if len(indices_to_pick_from) == 0:
-                            indices_to_pick_from = np.where(weights_to_next_layer[current_neuron_index] == 0)[0]
-                        if len(indices_to_pick_from) == 0:
-                            indices_to_pick_from = np.arange(weights_to_next_layer.shape[1])
 
-                    neuron_index = indices_to_pick_from[0]
+                    def next_with_sign(condition) -> int | None:
+                        indices = np.where(condition(weights_to_next_layer[current_neuron_index]))[0]
+                        if len(indices) == 0:
+                            return None
+                        return indices[0]
+                    
+                    def next() -> int:
+                        return np.arange(weights_to_next_layer.shape[1])[0]
+                    
+                    neuron_index = \
+                        next_with_sign(lambda s: s != 0) or next() \
+                        if sign is None else \
+                        next_with_sign(lambda s: s == sign) or next_with_sign(lambda s: s == 0) or next()
+                    
                     print(f"{indices_to_pick_from=}, {neuron_index=}")
                     path.append(layer + 1 + neuron_index / 10)
                     if sign is None:
